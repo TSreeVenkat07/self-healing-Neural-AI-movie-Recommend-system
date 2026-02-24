@@ -1,6 +1,6 @@
 fastapi==0.115.0
 uvicorn[standard]==0.30.6
-torch --extra-index-url https://download.pytorch.org/whl/cpu
+torch==2.2.2+cpu --extra-index-url https://download.pytorch.org/whl/cpu
 sqlalchemy==2.0.35
 psycopg2-binary==2.9.9
 numpy
