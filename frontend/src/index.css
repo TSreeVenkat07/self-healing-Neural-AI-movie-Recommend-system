@@ -1,0 +1,186 @@
+@import "tailwindcss";
+
+/* ═══════════════════════════ VX Design System ═══════════════════════════ */
+
+:root {
+  --vx-bg: #0a0a0f;
+  --vx-surface: #12121a;
+  --vx-surface-hover: #1a1a26;
+  --vx-border: #1e1e2e;
+  --vx-accent: #7c3aed;
+  --vx-accent-light: #a78bfa;
+  --vx-accent-glow: rgba(124, 58, 237, 0.3);
+  --vx-cyan: #06b6d4;
+  --vx-emerald: #10b981;
+  --vx-rose: #f43f5e;
+  --vx-amber: #f59e0b;
+  --vx-text: #f1f5f9;
+  --vx-text-muted: #94a3b8;
+  --vx-text-dim: #475569;
+  --vx-gradient-1: linear-gradient(135deg, #7c3aed 0%, #06b6d4 100%);
+  --vx-gradient-2: linear-gradient(135deg, #f43f5e 0%, #f59e0b 100%);
+  --vx-gradient-3: linear-gradient(135deg, #10b981 0%, #06b6d4 100%);
+}
+
+/* ── Base ─────────────────────────────────────────────────────────────── */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--vx-bg);
+  color: var(--vx-text);
+  font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* ── Scrollbar ─────────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #2a2a3e; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #3a3a52; }
+
+/* ── Genre Row Scroll ─────────────────────────────────────────────────── */
+.genre-scroll {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding-bottom: 8px;
+  scroll-snap-type: x proximity;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.genre-scroll::-webkit-scrollbar { display: none; }
+
+/* ── Movie Card ───────────────────────────────────────────────────────── */
+.movie-card {
+  flex-shrink: 0;
+  width: 190px;
+  scroll-snap-align: start;
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--vx-surface);
+  border: 1px solid var(--vx-border);
+  transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  cursor: pointer;
+  position: relative;
+}
+.movie-card:hover {
+  transform: translateY(-8px) scale(1.03);
+  border-color: var(--vx-accent);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 30px var(--vx-accent-glow);
+  z-index: 10;
+}
+
+.movie-poster {
+  width: 100%;
+  aspect-ratio: 2/3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.movie-poster-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(10,10,15,0.9) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.movie-card:hover .movie-poster-overlay { opacity: 1; }
+
+.movie-info {
+  padding: 12px 14px 14px;
+}
+
+/* ── Shimmer Loading ──────────────────────────────────────────────────── */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.shimmer {
+  background: linear-gradient(90deg, var(--vx-surface) 25%, var(--vx-surface-hover) 50%, var(--vx-surface) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 14px;
+}
+
+/* ── Fade In ──────────────────────────────────────────────────────────── */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in-up {
+  animation: fadeInUp 0.5s ease-out forwards;
+}
+
+/* ── Hero Gradient ────────────────────────────────────────────────────── */
+.hero-gradient {
+  background: radial-gradient(ellipse at 20% 50%, rgba(124,58,237,0.15) 0%, transparent 60%),
+              radial-gradient(ellipse at 80% 20%, rgba(6,182,212,0.1) 0%, transparent 50%),
+              var(--vx-bg);
+}
+
+/* ── Genre Pill ───────────────────────────────────────────────────────── */
+.genre-pill {
+  padding: 6px 16px;
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 600;
+  border: 1px solid var(--vx-border);
+  background: var(--vx-surface);
+  color: var(--vx-text-muted);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  white-space: nowrap;
+}
+.genre-pill:hover {
+  border-color: var(--vx-accent);
+  color: var(--vx-accent-light);
+  background: rgba(124,58,237,0.1);
+}
+.genre-pill.active {
+  background: var(--vx-accent);
+  border-color: var(--vx-accent);
+  color: white;
+  box-shadow: 0 0 20px var(--vx-accent-glow);
+}
+
+/* ── Neural Health Pulse ──────────────────────────────────────────────── */
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 4px var(--vx-emerald); }
+  50% { box-shadow: 0 0 12px var(--vx-emerald), 0 0 24px rgba(16,185,129,0.2); }
+}
+.neural-pulse {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* ── Floating Orb Background ──────────────────────────────────────────── */
+@keyframes float-orb {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30px, -20px) scale(1.1); }
+  66% { transform: translate(-20px, 15px) scale(0.95); }
+}
+.bg-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  animation: float-orb 12s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* ── Score Bar ────────────────────────────────────────────────────────── */
+.score-bar {
+  height: 3px;
+  border-radius: 3px;
+  background: var(--vx-border);
+  overflow: hidden;
+}
+.score-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.5s ease;
+}
