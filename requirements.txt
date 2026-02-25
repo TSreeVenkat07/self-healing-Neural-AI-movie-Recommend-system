@@ -3,7 +3,7 @@ uvicorn[standard]==0.30.6
 https://download.pytorch.org/whl/cpu/torch-2.2.2%2Bcpu-cp310-cp310-linux_x86_64.whl
 sqlalchemy==2.0.35
 psycopg2-binary==2.9.9
-numpy
+numpy<2
 pandas
 scikit-learn
 requests==2.32.3
