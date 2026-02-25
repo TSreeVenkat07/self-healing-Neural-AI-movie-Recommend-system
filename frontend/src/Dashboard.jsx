@@ -3,7 +3,11 @@ import { useState, useEffect, useRef, useMemo } from "react";
 const API = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
 async function api(path) {
-    const res = await fetch(`${API}${path}`);
+    const res = await fetch(`${API}${path}`, {
+        headers: {
+            "ngrok-skip-browser-warning": "69420"
+        }
+    });
     if (!res.ok) throw new Error(`${res.status}`);
     return res.json();
 }
