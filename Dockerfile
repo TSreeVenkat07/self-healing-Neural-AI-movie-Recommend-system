@@ -19,6 +19,16 @@ WORKDIR /app
 # Copy only the installed packages from the builder stage
 COPY --from=builder /install /usr/local
 
+# Limit PyTorch memory to prevent Render OOM
+ENV MALLOC_ARENA_MAX=2
+ENV MAX_CONCURRENCY=1
+ENV OMP_NUM_THREADS=1
+ENV OPENBLAS_NUM_THREADS=1
+ENV MKL_NUM_THREADS=1
+ENV VECLIB_MAXIMUM_THREADS=1
+ENV NUMEXPR_NUM_THREADS=1
+ENV RAY_DISABLE_MEMORY_MONITOR=1
+
 # Copy application code
 COPY . .
 
